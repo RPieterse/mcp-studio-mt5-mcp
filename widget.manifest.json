@@ -1,0 +1,102 @@
+{
+  "manifest_version": 1,
+  "id": "com.rohanpieterse.mt5",
+  "name": "MetaTrader 5",
+  "version": "0.1.0",
+  "description": "Trade through MetaTrader 5 — risk-sized market orders, position management, and account info. Bring your own MT5 terminal.",
+  "homepage": "https://www.metatrader5.com/en/terminal/help/algotrading/python_metatrader5",
+  "mcp": {
+    "transport": "stdio",
+    "command": "node",
+    "args": ["./dist/index.js"],
+    "env": {
+      "MT5_PYTHON": "${secrets.mt5_credentials.python_bin}",
+      "MT5_PATH": "${secrets.mt5_credentials.terminal_path}",
+      "MT5_LOGIN": "${secrets.mt5_credentials.login}",
+      "MT5_PASSWORD": "${secrets.mt5_credentials.password}",
+      "MT5_SERVER": "${secrets.mt5_credentials.server}"
+    }
+  },
+  "install": [
+    { "shell": "npm install" },
+    { "shell": "npm run build" }
+  ],
+  "auth": {
+    "type": "api_key",
+    "fields": [
+      {
+        "key": "python_bin",
+        "label": "Python interpreter (path to a python3 with the MetaTrader5 package installed)",
+        "secret": false
+      },
+      {
+        "key": "terminal_path",
+        "label": "MT5 terminal path (optional — leave blank to use the default install)",
+        "secret": false
+      },
+      {
+        "key": "login",
+        "label": "MT5 account number (optional — leave blank if the terminal is already logged in)",
+        "secret": false
+      },
+      {
+        "key": "password",
+        "label": "MT5 password (only needed if login is set)",
+        "secret": true
+      },
+      {
+        "key": "server",
+        "label": "MT5 broker server (only needed if login is set)",
+        "secret": false
+      }
+    ],
+    "store_as": "mt5_credentials"
+  },
+  "permissions": {
+    "secrets": ["mt5_credentials"]
+  },
+  "storage": [
+    {
+      "key": "default_symbol",
+      "type": "text",
+      "label": "Default symbol",
+      "description": "Symbol used when a quick command doesn't specify one (e.g. EURUSD).",
+      "default": "EURUSD"
+    },
+    {
+      "key": "default_risk_percent",
+      "type": "text",
+      "label": "Default risk percent",
+      "description": "Account % to risk per trade when a prompt doesn't specify.",
+      "default": "1"
+    }
+  ],
+  "quick_commands": [
+    {
+      "trigger": "mt5_account",
+      "description": "Show MT5 account balance, equity, and margin.",
+      "tool": "account_info"
+    },
+    {
+      "trigger": "mt5_positions",
+      "description": "List open positions on the default symbol.",
+      "tool": "get_positions",
+      "args": {
+        "symbol": "${storage.default_symbol}"
+      }
+    },
+    {
+      "trigger": "mt5_plan",
+      "description": "Dry-run a 1:2 buy on the default symbol at 10 pip SL, default risk %.",
+      "tool": "place_risk_order",
+      "args": {
+        "symbol": "${storage.default_symbol}",
+        "side": "buy",
+        "stop_loss_pips": 10,
+        "risk_reward_ratio": 2,
+        "risk_percent": "${storage.default_risk_percent}",
+        "dry_run": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "mt5-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for MetaTrader 5 — risk-based market orders, position management, and account info via a long-lived Python bridge.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "mt5-mcp": "./dist/index.js"
+  },
+  "files": ["dist", "python", "widget.manifest.json"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}
