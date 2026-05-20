@@ -75,7 +75,8 @@
     {
       "trigger": "mt5_account",
       "description": "Show MT5 account balance, equity, and margin.",
-      "tool": "account_info"
+      "tool": "account_info",
+      "platforms": ["desktop", "mobile", "cli"]
     },
     {
       "trigger": "mt5_positions",
@@ -83,7 +84,8 @@
       "tool": "get_positions",
       "args": {
         "symbol": "${storage.default_symbol}"
-      }
+      },
+      "platforms": ["desktop", "mobile", "cli"]
     },
     {
       "trigger": "mt5_plan",
@@ -96,7 +98,8 @@
         "risk_reward_ratio": 2,
         "risk_percent": "${storage.default_risk_percent}",
         "dry_run": true
-      }
+      },
+      "platforms": ["desktop", "mobile", "cli"]
     }
   ]
 }
