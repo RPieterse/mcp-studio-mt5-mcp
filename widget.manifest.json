@@ -2,7 +2,7 @@
   "manifest_version": 1,
   "id": "com.rohanpieterse.mt5",
   "name": "MetaTrader 5",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Trade through MetaTrader 5 — risk-sized market orders, position management, and account info. Bring your own MT5 terminal.",
   "homepage": "https://www.metatrader5.com/en/terminal/help/algotrading/python_metatrader5",
   "mcp": {
